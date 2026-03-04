@@ -12,6 +12,9 @@ echo "RAG Demo Server Starting"
 echo "SERVER URL: http://$(hostname):8000"
 echo "============================================"
 
-cd "$(dirname "$0")"
+cd "$SLURM_SUBMIT_DIR"
+
+# Ensure venv is created with a Python available on the compute node
+uv sync
 
 uv run uvicorn server:app --host 0.0.0.0 --port 8000
