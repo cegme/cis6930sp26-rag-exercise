@@ -10,7 +10,16 @@ A live, collaborative demo where students build a shared RAG knowledge base and 
 ssh <gatorlink>@hpg.rc.ufl.edu
 ```
 
-### 2. Set the server URL
+### 2. Clone the exercise repo
+
+```bash
+cd /blue/cis6930/<gatorlink>/
+git clone https://github.com/cegme/cis6930sp26-rag-exercise.git
+cd cis6930sp26-rag-exercise
+uv sync
+```
+
+### 3. Set the server URL
 
 The instructor will provide the hostname. Replace `HOSTNAME` below:
 
@@ -18,7 +27,7 @@ The instructor will provide the hostname. Replace `HOSTNAME` below:
 export RAG_SERVER=http://HOSTNAME:8000
 ```
 
-### 3. Verify connection
+### 4. Verify connection
 
 ```bash
 uv run python client.py stats
@@ -65,12 +74,18 @@ uv run python client.py evaluate
 
 ## Instructor Setup
 
-1. Copy `.env.example` to `.env` and set your `NAVIGATOR_API_KEY`
-2. Pre-download the embedding model:
+1. Clone the repo on HiPerGator:
+   ```bash
+   cd /blue/cis6930/<gatorlink>/
+   git clone https://github.com/cegme/cis6930sp26-rag-exercise.git
+   cd cis6930sp26-rag-exercise
+   ```
+2. Copy `.env.example` to `.env` and set your `NAVIGATOR_API_KEY`
+3. Install dependencies: `uv sync`
+4. Pre-download the embedding model:
    ```bash
    uv run python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
    ```
-3. Install dependencies: `uv sync`
-4. Submit the server job: `sbatch run_server.sh`
-5. Check the log for the server URL: `cat rag-demo-*.log`
-6. Test: `curl http://HOSTNAME:8000/stats`
+5. Submit the server job: `sbatch run_server.sh`
+6. Check the log for the server URL: `cat rag-demo-*.log`
+7. Test: `curl http://HOSTNAME:8000/stats`
